@@ -1,0 +1,37 @@
+
+		table, th, td {
+			border: 1px solid black;
+			font-family: Arial, Consolas, "Courier New", monospace;
+			text-align: center;
+			padding: 5px 25px 5px;
+			border-collapse: collapse;
+		}
+		table{
+			align: center;
+			width: 90%
+		}
+
+		th{
+			text-weight: bold;
+			color: white;
+			align: center;
+			background-color: #3498DB;
+		}
+		
+		tr:nth-child(odd){
+			background: lightgrey;
+		}
+
+		#remove_cart{
+			float: center;
+		}
+		#container{
+			align: center;
+		}
+		button{
+			border-radius: 5px;
+			align: center;
+		}
+		#empty_space {
+		height:100px;
+		}
