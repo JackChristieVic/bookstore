@@ -55,9 +55,14 @@
 			font-size: 15px;
 			font-family: Arial, Helvetica, sans-serif;
 		}
+
+        whole_header {
+            position: fiexed;
+        }
 		
 </style>
 </head>
+<div class="whole_header">
 	<div class="header">
 	<h2>Fake Book Store</h2>
 	<p>This is a project created by Jack Christie, Information and Computer System Technology program graduate from Camosun College</p>
@@ -78,7 +83,7 @@
 			?>
 		</ul>
 	</nav>
-
+</div>
 	
 	<main container class="siteContent">
 	<!-- BEGIN CHANGEABLE CONTENT. -->
