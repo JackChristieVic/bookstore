@@ -90,122 +90,29 @@ function pre_r($array){
 <html lang="en">
 <head>
     <meta charset="utf-8">
-
-    
 	<title>View by Genre</title>
 	
-	<?php include ('Header.php'); ?>
-    <link rel="stylesheet" type="text/css" href="../css/index.css----">
-    <style>
-        thead {
-            position: relative;
-        }
-        table, td {
-            border-collapse: collapse;
-            background-color: white;
-            text-align: center;
-            background-color:none;
-            border-bottom: 1px solid #3697F1 ;
-            padding: 8px;
-			font-size: 15px;
-            font-family: Arial, Helvetica, sans-serif;
-            height: 20px;
-        }
-        
-        tr{
-            height: 50px;
-        }
-        table {
-            text-align:center;
-            width: 80%;
-            margin-left:auto; 
-            margin-right:auto;
-        }
-        input[type=submit] {
-            background-color: grey ;
-            border: none;
-            color: white;
-            padding: 10px;
-            text-decoration: none;
-            margin: 10px;
-            cursor: pointer;
-            font-size: 15px;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        input[type=text] {
-            border: 2px solid grey;
-            text-align: center;
-            width: 100%;
-            padding: 10px;
-            margin: 10px;
-            box-sizing: border-box;
-            font-size: 15px;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        h3 {
-            font-size: 25px;
-            text-align: center;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        button {
-            position: left;
-            width: 50%;
-            font-size: 15px;
-            text-align: center;
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: grey;
-        }
-        button:hover {
-            background-color: lightblue;
-        }
-        input[type=submit]:hover {
-            background-color: lightblue;
-        }
-
-        a:link {
-            text-decoration: none;
-            font-size: 20px;
-            text-align: center;
-            font-family: Arial, Helvetica, sans-serif;
-            margin-left:auto; 
-            margin-right:auto;
-            
-        }
-       
-        a:hover {
-            background-color: lightblue;
-            font-size: 20px;
-            text-align: center;
-            width: 100%;
-        }
-
-        .page {
-            text-align:center;
-            width: 80%;
-            margin-left:auto; 
-            margin-right:auto;
-            padding: 10px;
-        }
-        .page button {
-            position: left;
-            width: 15%;
-            font-size: 5px;
-            text-align: center;
-            font-family: Arial, Helvetica, sans-serif;
-            padding: 2px;
-            margin-left:15px; 
-            margin-right:15px;
-            
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="../css/cart.css">
 </head>
 
 <body>
-  
-    <h3>Books That Are Currently Popular</h3>	
+<?php include ('Header.php'); ?>
+    <h3>Books That Are Currently Popular</h3>
+    <?php
+    $total_cost = 0;
+    $total_items = 0;         
+    if(!empty($_SESSION['shopping_cart'])){
+        foreach($_SESSION['shopping_cart'] as $key => $book){
+        $total_items += $book['quantity'];
+        }
+    }
+    ?>
     <table width="75%">
+                <tr>
+                    <th class="total_item" colspan="6" style="text-align: right; ">
+                        <a href="cart.php"><span style="font-size: 25px; color: red;"><?php echo $total_items; ?></span> items in cart</a> 
+                    </th>
+                </tr>
                 <tr>
                     <th width="5%">Book ID Number</th>
                     <th width="25%">Book Cover</th>
@@ -238,106 +145,45 @@ function pre_r($array){
                 $book_cover = $row['product_img_dir'];
 
     ?>
-                <form width="60%" method="post" style="text-align:center" action="index.php?action=add&id=<?php echo $book_id; ?>" >
-                
-                <table width="75%">
-                    <tr>
-                        <td width="5%"><?php echo  $book_id; ?></td> 
-                        <td width="25%"><img style="width:100px" src="<?php echo $book_cover; ?>" /></td>
-                        <td width="25%"><?php echo  $book_name; ?></td> 
-                        <td width="10%"><?php echo  $book_price; ?></td> 
-                        <td width="10%"><input width="5%" type="text" name="quantity" value="1" /><td>
-                        <input type="submit" name="add_to_cart" value="Purchase" />
-                        <input type="hidden" name="book_name" value="<?php echo  $book_name; ?>" />
-                        <input type="hidden" name="book_price" value="<?php echo  $book_price; ?>" />	
-                    </tr>	  	
-                </table>
-            </form>
-                <?php
+        <form width="60%" method="post" style="text-align:center" action="index.php?action=add&id=<?php echo $book_id; ?>" >
+        
+            <table width="75%">
+                <tr>
+                    <td width="5%"><?php echo  $book_id; ?></td> 
+                    <td width="25%"><img style="width:100px" src="<?php echo $book_cover; ?>" /></td>
+                    <td width="25%"><?php echo  $book_name; ?></td> 
+                    <td width="10%"><?php echo  $book_price; ?></td> 
+                    <td width="10%"><input width="5%" type="text" name="quantity" value="1" /><td>
+                    <input type="submit" name="add_to_cart" value="Purchase" />
+                    <input type="hidden" name="book_name" value="<?php echo  $book_name; ?>" />
+                    <input type="hidden" name="book_price" value="<?php echo  $book_price; ?>" />	
+                </tr>	  	
+            </table>
+        </form>
+        <?php
                 }
             }
         }
+    ?>
+    <h4 class="page">
+        <?php
+            $query = "SELECT * FROM products";
+            $result = mysqli_query($dbc,$query);
+            $row_count = mysqli_num_rows($result);
+            $total_pages = ceil($row_count/$num_per_page);
+            if($page > 1){
+                echo "<button><a href='index.php?page=".($page - 1). "'> << </a></button>";
+            }
 
-            ?>
-            <h4 class="page">
-                <?php
-                    $query = "SELECT * FROM products";
-                    $result = mysqli_query($dbc,$query);
-                    $row_count = mysqli_num_rows($result);
-                    $total_pages = ceil($row_count/$num_per_page);
-                    if($page > 1){
-                        echo "<button><a href='index.php?page=".($page - 1). "'> << </a></button>";
-                    }
+            for($i = 1; $i < $total_pages; $i++){
+                echo "<button><a href='index.php?page=".$i. "'>Page $i</a></button>";
+            }
 
-                    for($i = 1; $i < $total_pages; $i++){
-                        echo "<button><a href='index.php?page=".$i. "'>Page $i</a></button>";
-                    }
-
-                    if($i > $page){
-                        echo "<button><a href='index.php?page=".($page + 1). "'> >> </a></button>";
-                    }
-                ?>
-            </h4>
-
-            <table>
-                <tr>
-                    <th>Book ID</th>
-                    <th>Book Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th colspan="3">Adjust Quantity</th> 
-                    <th>Total Cost</th>
-                </tr>
-           
-                <?php
-                if(!empty($_SESSION['shopping_cart'])){
-                    $total_cost = 0;
-                    foreach($_SESSION['shopping_cart'] as $key => $book){
-                    ?>
-                        <tr>
-                            <td><?php echo  $book['id']; ?></td> 
-                            <td><?php echo  $book['name']; ?></td> 
-                            <td><?php echo  $book['price']; ?></td> 
-                            <td><?php echo  $book['quantity']; ?></td>
-                            <td><a href="index.php?action=decrease&id=<?php echo $book['id']; ?>">-</a></td> 
-                            <td><a href="index.php?action=delete&id=<?php echo $book['id']; ?>">x</a></td>
-                            <td><a href="index.php?action=increase&id=<?php echo $book['id']; ?>">+</a></td>
-                            <td><?php echo  $book['quantity'] * $book['price']; ?></td>
-                        </tr>
-                    <?php
-                    $total_cost += ($book['quantity'] * $book['price']);
-                    }
-                } 
-                ?>
-
-                <tr>
-                    <td colspan="7" style="text-align: right">Total Cost</td>
-                    <td><?php 
-                            if(isset($_SESSION['shopping_cart']) && count($_SESSION['shopping_cart']) > 0){
-                                echo "$" . $total_cost; 
-                            }else{
-                                $total_cost = 0;
-                                echo "$" . $total_cost; 
-                            }
-                            ?>
-                    </td>
-                </tr>
-
-                <tr>
-                    <?php
-                        $action = "";
-                        if(isset($_SESSION['shopping_cart']) && count($_SESSION['shopping_cart']) > 0){
-                            $action = "Check Out";
-                        }else{
-                            $action = "Nothing to check out";
-                        }
-                    ?>
-                    <td></td>
-                    <td colspan="7" style="text-align: right;"><input type="submit" name="check_out" value="<?php echo $action; ?>" ><a href="cart.php">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                   
-                </tr>
-                </tbody>
-            </table>  
+            if($i > $page){
+                echo "<button><a href='index.php?page=".($page + 1). "'> >> </a></button>";
+            }
+        ?>
+    </h4>
 </body>
 <?php include ('Footer.php'); ?>
 </html>

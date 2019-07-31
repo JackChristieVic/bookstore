@@ -1,7 +1,3 @@
-INSERT INTO bookstore.customer (email, password, customer_status)
-VALUES ('jack@gmail.com', '12345678', 'client');
+INSERT INTO id10149432_bookstore.customer (customer_id, email, user_name, password_1, password_2, first_name, last_name)
+VALUES ('jack@gmail.com', 'jack', '12345678','12345678','jack','c' );
 
-INSERT INTO bookstore.customer (email, password, customer_status)
-VALUES ('new@gmail.com', '12345678', 'customer');
-
-SELECT * FROM bookstore.customer;
