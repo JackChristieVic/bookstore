@@ -8,7 +8,7 @@
 			if (defined('TITLE')) { // Is the title defined?
 				print TITLE;
 			} else { // The title is not defined.
-			print 'Bookverse Book Store';
+			print 'Fake Book Store';
 			}
 		?>
 	</title>

@@ -1,0 +1,82 @@
+.bookform {
+    text-align: center;
+    font-size: 15px;
+    font-family: Arial, Consolas, "Courier New", monospace;
+    margin-right: auto;
+    margin-left: auto;
+    width: 25%;
+}
+
+h1{
+    text-align: center;
+    padding: 10px;
+    font-family: Arial, Consolas, "Courier New", monospace;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+p{
+    text-align: left;
+    font-size: 20px;
+    font-family: Arial, Consolas, "Courier New", monospace;
+}
+
+input[type=text], [type=file] {
+    border: 2px solid grey;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+input[type=submit] {
+    background-color: grey ;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    margin: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.custom-select {
+    position: relative;
+    font-family: Arial;
+  }
+  
+select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+   
+    font-size: 15px;
+    font-family: Arial, Consolas, "Courier New", monospace;
+
+    display: block;
+    border: none;
+    margin: 5px;
+    padding: 10px;
+    background-color:white;
+    color: black;
+    border: 2px solid grey;
+    width: 520px;
+    /* min-width: 200px; */
+    height: 45px;
+    text-align: left;
+    border-radius: 0px;
+    overflow:hidden;
+  }
+
+select option {
+    width:350px;
+}
+
+
+
+  
+  

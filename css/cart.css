@@ -67,11 +67,13 @@ thead {
 
         a:link {
             text-decoration: none;
+            width: 100%;
             font-size: 20px;
-            text-align: center;
             font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
             margin-left:auto; 
             margin-right:auto;
+            padding: 500px;
             
         }
        
@@ -79,7 +81,9 @@ thead {
             background-color: lightblue;
             font-size: 20px;
             text-align: center;
-            width: 100%;
+            margin-left:auto; 
+            margin-right:auto;
+            /* width: 200%; */
         }
 
         .page {
@@ -96,13 +100,13 @@ thead {
             border-right: none;
             border-left: none;
             position: left;
-            width: 5%;
+            width: 100%;
             font-size: 5px;
             text-align: center;
             font-family: Arial, Helvetica, sans-serif;
-            padding: 2px;
-            margin-left:15px; 
-            margin-right:15px;
+            /* padding: 2px; */
+            /* margin-left:15px;  */
+            /* margin-right:15px; */
             
         }
         .total_items {

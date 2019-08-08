@@ -176,7 +176,7 @@ function pre_r($array){
             }
 
             for($i = 1; $i < $total_pages; $i++){
-                echo "<button><a href='index.php?page=".$i. "'>Page $i</a></button>";
+                echo "<button><a href='index.php?page=".$i. "'> $i</a></button>";
             }
 
             if($i > $page){
