@@ -91,16 +91,17 @@ function pre_r($array){
 <head>
     <meta charset="utf-8">
 	<title>View by Genre</title>
-	
-    <link rel="stylesheet" type="text/css" href="../css/cart.css">
+	<?php include ('Header.php'); ?>
+    <link rel="stylesheet" type="text/css" href="../css/-cart.css">
 </head>
 
 <body>
-<?php include ('Header.php'); ?>
+
     <h3>Books That Are Currently Popular</h3>
     <?php
     $total_cost = 0;
-    $total_items = 0;         
+    $total_items = 0;
+    // get the total item to display on top of the list of books         
     if(!empty($_SESSION['shopping_cart'])){
         foreach($_SESSION['shopping_cart'] as $key => $book){
         $total_items += $book['quantity'];
@@ -108,20 +109,19 @@ function pre_r($array){
     }
     ?>
     <table width="75%">
-                <tr>
-                    <th class="total_item" colspan="6" style="text-align: right; ">
-                        <a href="cart.php"><span style="font-size: 25px; color: red;"><?php echo $total_items; ?></span> items in cart</a> 
-                    </th>
-                </tr>
-                <tr>
-                    <th width="5%">Book ID Number</th>
-                    <th width="25%">Book Cover</th>
-                    <th width="20%">Book Name</th>
-                    <th width="10%">Price</th>
-                    <th width="10%">Quantity</th>
-                    <th>Action</th>
-                </tr>
-   
+        <tr>
+            <th class="total_item" colspan="6" style="text-align: right; ">
+                <a href="cart.php"><span style="font-size: 25px; color: red;"><?php echo $total_items; ?></span> items in cart</a> 
+            </th>
+        </tr>
+        <tr>
+            <th width="5%">Book ID Number</th>
+            <th width="25%">Book Cover</th>
+            <th width="20%">Book Name</th>
+            <th width="10%">Price</th>
+            <th width="10%">Quantity</th>
+            <th>Action</th>
+        </tr>
     </table>    
     <?php
     include ('mysqli_connect.php');
@@ -132,7 +132,8 @@ function pre_r($array){
     }
     $num_per_page = 4;
     $start_page = ($page - 1) * 4;
-    $query = "SELECT * FROM products limit $start_page, $num_per_page";
+    $query = "SELECT * FROM products ORDER BY product_id DESC limit $start_page, $num_per_page";
+    // $query = "SELECT * FROM products ORDER BY product_id DESC";
 
     $result = mysqli_query($dbc,$query);
     $row_count = mysqli_num_rows($result);

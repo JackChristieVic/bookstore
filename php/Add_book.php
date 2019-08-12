@@ -18,6 +18,7 @@
         $file_size = $_FILES['file']['size'];
         $file_error = $_FILES['file']['error'];
         $file_type = $_FILES['file']['type'];
+    
 
         // split file extension from full file name by .
         // after the explode(), we get an array
@@ -29,12 +30,12 @@
         // only allow these file types
         $allowed_file_type = array('jpg', 'jpeg','png');
         $upload_message = '';
-        $file_directory = '/Applications/XAMPP/xamppfiles/htdocs/bookstore/images/';
+        $file_directory = '../images/';
 
+        // after the explode() of the file name, check to see if the file type is allowed
         if(in_array($file_actual_extension, $allowed_file_type)){
             if($file_error === 0){
                 if($file_size < 5000000){
-                    //$file_new_name = uniqid('', true) . "." . $file_actual_extension;
                     $file_destination = $file_directory . $file_name;
                     move_uploaded_file($file_tmp_name, $file_destination);
                     $upload_message = 'File is successfully loaded';
@@ -48,73 +49,39 @@
                 echo "<h1 style='color: red;'>$upload_message</h1>"; 
             }
         }else{
-            $upload_message = "You cannot upload the file of this type.";
+            $upload_message = "Error uploading the file. Please make sure file is of type .jpg.";
             echo "<h1 style='color: red;'>$upload_message</h1>";
         }
 
+        // $genre = $_POST['genre'];
+        // echo "<h3>56 - genre: $genre</h3>";
 		// Validate the form data:
-		$problem = FALSE;
 
-		if ((!empty($_POST['price'])) && (!empty($_POST['name'])) && (!$file_error === 0)) {
+		if ((!empty($_POST['book_price'])) && (!empty($_POST['book_name'])) && (!empty($_POST['genre'])) && (!empty($file_name))) {
                 $book_price = mysqli_real_escape_string($dbc, $_POST['book_price']);
                 $book_name = mysqli_real_escape_string($dbc, $_POST['book_name']);
-				$img_dir = $file_directory;
+                $img_dir = $file_directory;
+                $category = mysqli_real_escape_string($dbc, $_POST['genre']);
+                //print '<p style="color: red;">You are good to to</p>';
+                if((is_numeric($book_price)) && (file_exists($img_dir))){ 
+                    echo "68 - book price: $book_price";
+                    # Define the query:
+                    $query = "INSERT INTO products(price, product_name, category, product_img_dir)
+                        VALUES ('$book_price', '$book_name', '$category','$file_destination')";
+                    mysqli_query($dbc, $query);
+                    header("Location: index.php"); 
 			} else {
-				print '<p style="color: red;">Please Fill out all fields</p>';
-				$problem = TRUE;
-			}
-        //         if((is_numeric($price)) && (file_exists($img_dir))){ 
-        //             if (!$problem) {
-        //                     # Define the query:
-        //                     $query = "INSERT INTO products(price, product_name, product_img_dir)
-		// 						VALUES ('$price', '$name', '$img_dir')";
-        //                     if (mysqli_query($dbc, $query)){
-        //                         $IDquery = "SELECT product_id FROM products WHERE product_name='$name'";
-		// 						#fetch the query result from the database
-        //                         $result = mysqli_query($dbc, $IDquery);
-								
-		// 						#get the content of array "result" from the database
-        //                         $row = mysqli_fetch_array($result);
-								
-        //                         $prodID = $row['product_id'];
-        //                         print '<p>Book added successfully</p>';
-        //                             }
-        //                             else {
-        //                                 print '<p style="color: red;">Could not add the book because:<br>' .
-        //                                     mysqli_error($dbc) . '.</p><p>The query being run was: ' . $query . '</p>';
-        //                                     print ' mysqli_error($dbc)';
-        //                             }
-        //                     foreach($_POST['check_list'] as $selected){
-        //                         $catID = mysqli_real_escape_string($dbc, $selected);
-        //                         $query2 = "INSERT INTO prod_cat VALUES ($prodID, $catID)";
-        //                         if (mysqli_query($dbc, $query2)){
-        //                             print '<p>Category added successfully</p>';
-        //                             }
-        //                             else {
-        //                                     print '<p style="color: red;">Could not add the book because:<br>' .
-        //                                     mysqli_error($dbc) . '.</p><p>The query being run was: ' . $query2 . '</p>';
-        //                                     print ' mysqli_error($dbc)';
-        //                             }
-        //                     }
-        //                     mysqli_close($dbc);
-        //                     }
-        //         }
-        //         else {
-        //             if (!is_numeric($price)){
-        //                 print '<p style="color: red;">Price field must be a number</p>';
-        //             }
-        //             if (!file_exists($img_dir)){
-        //                 print '<p style ="color: red;">Directory must point to an existing file</p>';
-        //             }
-        //         }
-		}
+				print '<p style="color: red;">Please fill out all fields</p>';
+            }
+        }
+    }
 ?>
 
 <div class="bookform">
     <h1>Add a book to the website</h1>
-        <form action="Add_book.php" method="post" enctype="multipart/form-data">
+        <form action="add_book.php" method="post" enctype="multipart/form-data">
             <p>Book Price:</p>
-            <input type="text" name="book_price">
+            <input type="text" name="book_price" >
             
             <p>Book Name:</p>
 		    <input type="text" name="book_name">
@@ -124,17 +91,18 @@
 
             <p>Select A File</p>
             <input type="file" name="file">
+        
             
             <p>Select Book Genre:</p>  
             <div class="custom-select" >
-                <select>
-                    <option value="0">Click here to select</option>
-                    <option value="1">Non-Fiction</option>
-                    <option value="2">Fiction</option>
-                    <option value="3">Sci-Fi</option>
-                    <option value="4">Kids</option>
-                    <option value="5">Romance</option>
-                    <option value="6">Comedy</option>
+                <select name="genre">
+                    <option value="None">Click here to select</option>
+                    <option value="Non-Fiction">Non-Fiction</option>
+                    <option value="Fiction">Fiction</option>
+                    <option value="Sci-Fi">Sci-Fi</option>
+                    <option value="Kids">Kids</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Comedy">Comedy</option>
                 </select>
             </div>
             

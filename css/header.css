@@ -1,0 +1,52 @@
+
+        
+        ul {
+			list-style-type: none;  /* This line gets rid of the dot before the text on the list*/
+			margin: 0;
+			padding: 15px;    /* the height of the grey menu bar */
+			background-color: grey;
+			font-family: Arial, Consolas, "Courier New", monospace;
+			font-size: 25px;
+			text-align:center;
+			overflow: hidden;
+		}
+		
+		li { 
+            display: inline; 		/* This line makes the list horizontal*/
+            float: center;
+        }
+        
+		li a {
+			margin-left: auto; /*center the reminder message*/
+			margin-right: auto;
+			display: block;   /*the menu displays as a block */
+			color: white;		/*text color of menu */	
+			padding: 8px 16px;
+			text-decoration: none;
+			display: inline;  /* This line makes the list horizontal*/
+		}
+		
+		li a:hover {
+			background-color: #555;
+			color: white;
+			padding: 15px /* the height of the menu block when hover over */
+		}
+
+		.header-text {
+			padding: 10px;
+			text-align: center;
+			background: #2196F3;
+			color: white;
+			font-size: 25px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        p {
+            font-size: 30px;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    
+
+
+    

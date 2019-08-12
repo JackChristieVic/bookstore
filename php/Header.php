@@ -13,67 +13,24 @@
 		?>
 	</title>
 	
-	<link rel="stylesheet" href="default.css">
-	<style> 
-		
-		ul {
-			list-style-type: none;  /* This line gets rid of the dot before the text on the list*/
-			margin: 0;
-			padding: 15px;    /* the height of the grey menu bar */
-			background-color: grey;
-			font-family: Arial, Consolas, "Courier New", monospace;
-			font-size: 16px;
-			text-align:center;
-			
-		}
-		
-		li { 
-			 
-			display: inline; 		/* This line makes the list horizontal*/
-		}
-		li a {
-			margin-left: auto; /*center the reminder message*/
-			margin-right: auto;
-			display: block;   /*the menu displays as a block */
-			color: white;		/*text color of menu */	
-			padding: 8px 16px;
-			text-decoration: none;
-			display: inline;  /* This line makes the list horizontal*/
-		}
-		
-		li a:hover {
-			background-color: #555;
-			color: white;
-			padding: 15px /* the height of the menu block when hover over */
-		}
-
-		.header {
-			padding: 10px;
-			text-align: center;
-			background: #2196F3;
-			color: white;
-			font-size: 15px;
-			font-family: Arial, Helvetica, sans-serif;
-		}
-
-        whole_header {
-            position: fiexed;
-        }
-		
-</style>
+	<link rel="stylesheet" type="text/css" href="../css/header.css">
+	<style> 	
+	
+	</style>
 </head>
-<div class="whole_header">
-	<div class="header">
-	<h2>Fake Book Store</h2>
-	<p>This is a project created by Jack Christie, Information and Computer System Technology program graduate from Camosun College</p>
+
+	<div class="header-text">
+		<h2>Fake Book Store</h2>
+		<p>This is a project created by Jack Christie, Information and Computer System Technology program graduate from Camosun College</p>
 	</div>
 	<nav>
 		<ul>
-			<li><a href="Index.php">Category Home </a></li>
-			<li><a href="View_cart.php">View Shopping Cart </a></li>
-			<li><a href="Order_history.php">View Order History </a></li>
-			<li><a href="Register.php"> Register</a></li>
-			<li><a href="About_us.php"> About Us</a></li>
+			<li><a href="Index.php">Category Home</a></li>
+			<li><a href="Add_book.php">Add Book</a></li>
+			<li><a href="cart.php">View Cart</a></li>
+			<li><a href="#">Order History</a></li>
+			<li><a href="Register.php">Register</a></li>
+			<li><a href="About_us.php">About Us</a></li>
 			<li><a href="Login.php">Login </a></li>
 			<?php // Print the page title.
 			//session_start();
@@ -83,7 +40,5 @@
 			?>
 		</ul>
 	</nav>
-</div>
-	
-	<main container class="siteContent">
-	<!-- BEGIN CHANGEABLE CONTENT. -->
+
+
