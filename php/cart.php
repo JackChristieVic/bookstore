@@ -68,6 +68,7 @@ function pre_r($array){
         }
     } 
     ?>
+    <form action="check_out.php" method="POST">
             </h4>
             <table>
                 <tr>
@@ -112,25 +113,36 @@ function pre_r($array){
                                 $total_cost = 0;
                                 echo "$" . $total_cost; 
                             }
+                            //echo $total_cost; 
                             ?>
+                   
+                    
                     </td>
                 </tr>
 
                 <tr>
                     <?php
                         $action = "";
+                        $href_link = "";
                         if(isset($_SESSION['shopping_cart']) && count($_SESSION['shopping_cart']) > 0){
                             $action = "Check Out";
+                            $href_link = "check_out.php";
+                            $href_link = "<input type='submit' action='check_out.php' value='$action' >";
                         }else{
                             $action = "Nothing to check out";
+                            $href_link = "<input type='submit' action='check_out.php' value='$action' >";
                         }
                     ?>
                     <td></td>
-                    <td colspan="7" style="text-align: right;"><input type="submit" name="check_out" value="<?php echo $action; ?>" ><a href="cart.php">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                   
+                    <input type="text" name="total_cost" value="<?php echo $total_cost * 100; ?>">
+                    <td colspan="7" style="text-align: right;">
+                        <?php echo $href_link; ?>
+                    </td>
+                    
                 </tr>
                 </tbody>
             </table>
+        </form>
            
 </body>
 <?php include ('Footer.php'); ?>

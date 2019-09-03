@@ -92,7 +92,7 @@ function pre_r($array){
     <meta charset="utf-8">
 	<title>View by Genre</title>
 	<?php include ('Header.php'); ?>
-    <link rel="stylesheet" type="text/css" href="../css/-cart.css">
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
 </head>
 
 <body>
@@ -163,6 +163,7 @@ function pre_r($array){
         </form>
         <?php
                 }
+                
             }
         }
     ?>
@@ -173,15 +174,15 @@ function pre_r($array){
             $row_count = mysqli_num_rows($result);
             $total_pages = ceil($row_count/$num_per_page);
             if($page > 1){
-                echo "<button><a href='index.php?page=".($page - 1). "'> << </a></button>";
+                echo "<button class='page-button'><a href='index.php?page=".($page - 1). "'> << </a></button>";
             }
 
             for($i = 1; $i < $total_pages; $i++){
-                echo "<button><a href='index.php?page=".$i. "'> $i</a></button>";
+                echo "<button class='page-button'><a href='index.php?page=".$i. "'> $i</a></button>";
             }
 
             if($i > $page){
-                echo "<button><a href='index.php?page=".($page + 1). "'> >> </a></button>";
+                echo "<button class='page-button'><a href='index.php?page=".($page + 1). "'> >> </a></button>";
             }
         ?>
     </h4>
